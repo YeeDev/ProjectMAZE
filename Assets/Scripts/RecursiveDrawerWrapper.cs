@@ -1,32 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Yee.Math;
 
-public class RecursiveDrawerWrapper : MazeDrawer
+namespace Maze.Core
 {
-    private void Awake()
+    public class RecursiveDrawerWrapper : MazeDrawer
     {
-        GenerateMaze();
-    }
+        private void Awake()
+        {
+            GenerateMaze();
+        }
 
-    private void GenerateMaze()
-    {
-        InitialiseMap();
-        RecursiveDrawer(Random.Range(1, mazeWidth), Random.Range(1, mazeDepth));
-        DrawMap();
-    }
+        private void GenerateMaze()
+        {
+            InitialiseMap();
+            RecursiveDrawer(Random.Range(1, mazeWidth), Random.Range(1, mazeDepth));
+            DrawMap();
+        }
 
-    private void RecursiveDrawer(int x, int z)
-    {
-        if(CountSquareNeighbours(x, z) >= 2) { return; }
-        map[x, z] = 0;
+        private void RecursiveDrawer(int x, int z)
+        {
+            if (CountSquareNeighbours(x, z) >= 2) { return; }
+            map[x, z] = 0;
 
-        directions.Shuffle();
+            directions.Shuffle();
 
-        RecursiveDrawer(x + directions[0].x, z + directions[0].z);
-        RecursiveDrawer(x + directions[1].x, z + directions[1].z);
-        RecursiveDrawer(x + directions[2].x, z + directions[2].z);
-        RecursiveDrawer(x + directions[3].x, z + directions[3].z);
+            RecursiveDrawer(x + directions[0].x, z + directions[0].z);
+            RecursiveDrawer(x + directions[1].x, z + directions[1].z);
+            RecursiveDrawer(x + directions[2].x, z + directions[2].z);
+            RecursiveDrawer(x + directions[3].x, z + directions[3].z);
+        }
     }
 }
